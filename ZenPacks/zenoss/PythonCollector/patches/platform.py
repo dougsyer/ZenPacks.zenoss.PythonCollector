@@ -46,6 +46,10 @@ def _updateRelationship(self, device, relmap):
     if hasattr(objmap, 'remove'):
         del(objmap.remove)
 
+    prevent_addition = getattr(objmap, 'prevent_addition', False) is True
+    if hasattr(objmap, 'prevent_addition'):
+        del(objmap.prevent_addition)
+
     relname = getattr(objmap, 'relname', None)
     if hasattr(objmap, 'relname'):
         del(objmap.relname)
@@ -61,7 +65,8 @@ def _updateRelationship(self, device, relmap):
     if obj:
         return self._updateObject(obj, objmap)
 
-    self._createRelObject(device, objmap, relname)[0]
+    if not prevent_addition:
+        self._createRelObject(device, objmap, relname)[0]
 
     # If we get here it means we created a new object. So we must return
     # true so the caller knows that a change in the model has occured.
