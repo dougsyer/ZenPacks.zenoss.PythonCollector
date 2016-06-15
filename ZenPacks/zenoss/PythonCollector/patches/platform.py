@@ -46,7 +46,7 @@ def _updateRelationship(self, device, relmap):
     if hasattr(objmap, 'remove'):
         del(objmap.remove)
 
-    add = getattr(objmap, '_add', True) is False
+    add = getattr(objmap, '_add', True) is True
     if hasattr(objmap, '_add'):
         del objmap._add
 
